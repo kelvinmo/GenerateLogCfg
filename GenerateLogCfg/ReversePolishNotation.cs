@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
-
-//http://andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm/
-
 namespace GenerateLogCfg
 {
+    /*
+     * Infix to RPN converter based on
+     * http://andreinc.net/2010/10/05/converting-infix-to-rpn-shunting-yard-algorithm/
+     */
     class ReversePolishNotation
     {
         // Associativity constants for operators
@@ -23,23 +24,12 @@ namespace GenerateLogCfg
 		    { "^", new int[] { 10, RIGHT_ASSOC } }
         };
 
-	    /**
-	     * Test if a certain is an operator .
-	     * @param token The token to be tested .
-	     * @return True if token is an operator . Otherwise False .
-	     */
-	    public static bool IsOperator(string token)
+        public static bool IsOperator(string token)
         {
             return OPERATORS.ContainsKey(token);
         }
 
-        /**
-         * Test the associativity of a certain operator token .
-         * @param token The token to be tested (needs to operator).
-         * @param type LEFT_ASSOC or RIGHT_ASSOC
-         * @return True if the tokenType equals the input parameter type .
-         */
-        private static bool isAssociative(string token, int type)
+        private static bool IsAssociative(string token, int type)
         {
             if (!IsOperator(token))
             {
@@ -52,15 +42,7 @@ namespace GenerateLogCfg
             return false;
         }
 
-        /**
-         * Compare precendece of two operators.
-         * @param token1 The first operator .
-         * @param token2 The second operator .
-         * @return A negative number if token1 has a smaller precedence than token2,
-         * 0 if the precendences of the two tokens are equal, a positive number
-         * otherwise.
-         */
-        private static int cmpPrecedence(string token1, string token2)
+        private static int ComparePrecedence(string token1, string token2)
         {
             if (!IsOperator(token1) || !IsOperator(token2))
             {
@@ -69,7 +51,7 @@ namespace GenerateLogCfg
             return OPERATORS[token1][0] - OPERATORS[token2][0];
         }
 
-        public static String[] infixToRPN(string[] inputTokens)
+        public static string[] InfixToRPN(string[] inputTokens)
         {
             List<string> output = new List<string>();
             Stack<string> stack = new Stack<string>();
@@ -82,8 +64,8 @@ namespace GenerateLogCfg
                     while ((stack.Count > 0) && IsOperator(stack.Peek()))
                     {
                         // [S4]
-                        if ((isAssociative(token, LEFT_ASSOC) && cmpPrecedence(token, stack.Peek()) <= 0)
-                            || (isAssociative(token, RIGHT_ASSOC) && cmpPrecedence(token, stack.Peek()) < 0))
+                        if ((IsAssociative(token, LEFT_ASSOC) && ComparePrecedence(token, stack.Peek()) <= 0)
+                            || (IsAssociative(token, RIGHT_ASSOC) && ComparePrecedence(token, stack.Peek()) < 0))
                         {
 						    output.Add(stack.Pop());   // [S5] [S6]
                             continue;

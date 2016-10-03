@@ -23,7 +23,7 @@ namespace GenerateLogCfg
 
         public string[] ToRPN()
         {
-            return ReversePolishNotation.infixToRPN(tokens);
+            return ReversePolishNotation.InfixToRPN(tokens);
         }
 
         private void Tokenize(string expr)

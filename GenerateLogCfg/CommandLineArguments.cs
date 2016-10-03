@@ -1,11 +1,11 @@
-﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GenerateLogCfg
 {
+    /*
+     * Simple command line parser based on 
+     * http://dotnetfollower.com/wordpress/2012/03/c-simple-command-line-arguments-parser/
+     */
     class CommandLineArguments
     {
         protected readonly string prefix;
@@ -30,11 +30,7 @@ namespace GenerateLogCfg
         public string this[string key]
         {
             get { return GetValue(key); }
-            set
-            {
-                if (key != null)
-                    parsed[key] = value;
-            }
+            set { if (key != null) parsed[key] = value; }
         }
         public string Prefix
         {
