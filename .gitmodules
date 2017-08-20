@@ -1,0 +1,3 @@
+[submodule "SimpleCmd"]
+	path = SimpleCmd
+	url = git@github.com:kelvinmo/simplecmd.git
