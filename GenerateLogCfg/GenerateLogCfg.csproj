@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandLineArguments.cs" />
     <Compile Include="Expression.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="Program.cs" />

@@ -37,6 +37,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Xml;
+using SimpleCmd;
 
 namespace GenerateLogCfg
 {
@@ -362,17 +363,23 @@ namespace GenerateLogCfg
             TextWriter output;
             TextWriter err = Console.Error;
 
-            CommandLineArguments cmd = new CommandLineArguments(args);
+            SimpleCmdParser parser = new SimpleCmdParser();
+            parser.Add("help");
+            parser.Add("ecu-id", true);
+            parser.Add("trigger", true);
+            parser.Add("protocol", true);
 
-            if (cmd.Contains("help"))
+            SimpleCmdResults results = parser.Parse(args);
+
+            if (results.Contains("help"))
             {
                 ShowUsage();
                 return;
             }
 
-            if (cmd.Contains("1"))
+            if (results.Contains("@1"))
             {
-                defs.Load(cmd["1"]);
+                defs.Load((string)results["@1"]);
             } else {
                 Console.Error.WriteLine("Profile not specified");
                 Console.WriteLine();
@@ -380,20 +387,20 @@ namespace GenerateLogCfg
                 return;
             }
 
-            if (cmd.Contains("2"))
+            if (results.Contains("@2"))
             {
-                profile.Load(cmd["2"]);
+                profile.Load((string)results["@2"]);
             } else {
                 profile.Load(Console.In);
             }
 
-            if (cmd.Contains("3"))
+            if (results.Contains("@3"))
             {
                 try
                 {
-                    output = File.CreateText(cmd["3"]);
+                    output = File.CreateText((string)results["@3"]);
                 } catch (IOException e) {
-                    Console.Error.WriteLine(e.Message + ": " + cmd["3"]);
+                    Console.Error.WriteLine(e.Message + ": " + results["@3"]);
                     return;
                 }
             } else {
@@ -403,9 +410,9 @@ namespace GenerateLogCfg
             Program p = new Program();
             p.Definitions = defs;
 
-            if (cmd.Contains("ecu-id")) p.ECUID = cmd["ecu-id"];
-            if (cmd.Contains("trigger")) p.Trigger = cmd["trigger"];
-            if (cmd.Contains("protocol")) p.Protocol = cmd["protocol"];
+            if (results.Contains("ecu-id")) p.ECUID = (string)results["ecu-id"];
+            if (results.Contains("trigger")) p.Trigger = (string)results["trigger"];
+            if (results.Contains("protocol")) p.Protocol = (string)results["protocol"];
 
             p.ConvertProfile(profile, output, err);
 
