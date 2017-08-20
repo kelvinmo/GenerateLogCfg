@@ -1,11 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 14 for Windows Desktop
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenerateLogCfg", "GenerateLogCfg\GenerateLogCfg.csproj", "{1A9D607F-382E-4ED1-AA9B-39547DB09B17}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SimpleCmd", "SimpleCmd\SimpleCmd\SimpleCmd.shproj", "{1BCD05F1-BB91-4AA7-A5FB-0436DFF50A51}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SimpleCmd\SimpleCmd\SimpleCmd.projitems*{1a9d607f-382e-4ed1-aa9b-39547db09b17}*SharedItemsImports = 4
+		SimpleCmd\SimpleCmd\SimpleCmd.projitems*{1bcd05f1-bb91-4aa7-a5fb-0436dff50a51}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -18,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {684F6F54-3FCD-4271-A059-EF04494363C2}
 	EndGlobalSection
 EndGlobal
